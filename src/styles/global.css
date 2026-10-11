@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+/*
+ * Paleta inspirada en la identidad visual de la UNLu (unlu.edu.ar).
+ * Escalas en OKLCH para que el brillo percibido avance parejo entre pasos.
+ *  - brand: azul petróleo (matiz ~225), el color de la marca y los enlaces.
+ *  - accent: verde institucional, más vivo que el original para llamar la atención.
+ *  - neutral: grises con un toque de azul para que armonicen con brand.
+ *
+ * Accesibilidad (contraste WCAG sobre blanco):
+ *  - Texto: usar brand-600 o más oscuro, accent-600 o más oscuro, neutral-500 o más oscuro.
+ *    Todos superan 4.5:1 (AA); brand-600, accent-700 y neutral-600 superan 7:1 (AAA).
+ *  - accent-500 (3.7:1) solo para texto grande, iconos o bordes, nunca texto normal.
+ *  - Los tonos 50 y 100 son fondos, nunca texto.
+ */
+@theme {
+  --color-brand-50: oklch(0.975 0.012 225);
+  --color-brand-100: oklch(0.935 0.028 225);
+  --color-brand-200: oklch(0.87 0.05 225);
+  --color-brand-300: oklch(0.775 0.08 225);
+  --color-brand-400: oklch(0.65 0.1 225);
+  --color-brand-500: oklch(0.55 0.105 225);
+  --color-brand-600: oklch(0.46 0.09 225);
+  --color-brand-700: oklch(0.39 0.075 225);
+  --color-brand-800: oklch(0.32 0.06 230);
+  --color-brand-900: oklch(0.25 0.045 240);
+  --color-brand-950: oklch(0.19 0.03 245);
+
+  --color-accent-50: oklch(0.975 0.02 150);
+  --color-accent-100: oklch(0.94 0.045 150);
+  --color-accent-200: oklch(0.885 0.09 150);
+  --color-accent-300: oklch(0.815 0.14 150);
+  --color-accent-400: oklch(0.73 0.17 150);
+  --color-accent-500: oklch(0.6 0.16 150);
+  --color-accent-600: oklch(0.51 0.14 150);
+  --color-accent-700: oklch(0.47 0.12 150);
+  --color-accent-800: oklch(0.39 0.09 150);
+  --color-accent-900: oklch(0.31 0.07 150);
+  --color-accent-950: oklch(0.22 0.05 150);
+
+  --color-neutral-50: oklch(0.985 0.002 240);
+  --color-neutral-100: oklch(0.967 0.004 240);
+  --color-neutral-200: oklch(0.928 0.006 240);
+  --color-neutral-300: oklch(0.87 0.008 240);
+  --color-neutral-400: oklch(0.71 0.012 240);
+  --color-neutral-500: oklch(0.5 0.015 240);
+  --color-neutral-600: oklch(0.45 0.015 240);
+  --color-neutral-700: oklch(0.37 0.015 240);
+  --color-neutral-800: oklch(0.27 0.013 240);
+  --color-neutral-900: oklch(0.2 0.01 240);
+  --color-neutral-950: oklch(0.15 0.008 240);
+}
