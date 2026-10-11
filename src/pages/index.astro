@@ -1,17 +1,114 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import Boton from '../components/Boton.astro';
+
+const tipos = [
+	{
+		titulo: 'Apuntes',
+		descripcion: 'Resúmenes y notas de clase para repasar cada tema a tu ritmo.',
+	},
+	{
+		titulo: 'Parciales',
+		descripcion: 'Exámenes anteriores, resueltos o tomados, para practicar antes de la fecha.',
+	},
+	{
+		titulo: 'Finales',
+		descripcion: 'Material para preparar la mesa de examen final de cada materia.',
+	},
+];
+
+// Es una secuencia real de pasos, por eso se numera.
+const pasos = [
+	{
+		titulo: 'Elegí tu materia',
+		descripcion: 'Recorré el material organizado por cada materia de la carrera.',
+	},
+	{
+		titulo: 'Encontrá lo que necesitás',
+		descripcion: 'Apuntes, parciales y finales que comparten otros estudiantes.',
+	},
+	{
+		titulo: 'Sumá tu material',
+		descripcion: 'Subí lo que tengas y ayudá a quienes cursan después que vos.',
+	},
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="ApunteUNLu: apuntes y finales de Sistemas">
+	<!-- Hero: el titular en serif es el único momento tipográfico fuerte de la página -->
+	<section class="mx-auto max-w-6xl px-4 pt-14 pb-20 sm:px-6 sm:pt-24 sm:pb-28 lg:px-8 lg:pt-32">
+		<h1
+			class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight text-balance text-brand-950 sm:text-6xl lg:text-7xl"
+		>
+			Apuntes, parciales y finales de Sistemas.
+		</h1>
+
+		<p class="mt-6 max-w-xl text-lg leading-relaxed text-neutral-700">
+			El material que comparten los estudiantes de la Licenciatura en Sistemas de la UNLu, ordenado por materia.
+		</p>
+
+		<div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+			<Boton href="#material">Ver el material</Boton>
+			<a
+				href="#como-funciona"
+				class="rounded font-medium text-brand-800 underline underline-offset-4 transition hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+			>
+				Cómo funciona
+			</a>
+		</div>
+	</section>
+
+	<!-- Tipos de material: una lista con líneas, porque son tres ítems del mismo nivel -->
+	<section id="material" class="mx-auto max-w-6xl scroll-mt-20 px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8">
+		<h2 class="font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl">
+			Tres tipos de material
+		</h2>
+
+		<dl class="mt-8 divide-y divide-neutral-300 border-y border-neutral-300">
+			{
+				tipos.map((tipo) => (
+					<div class="grid gap-2 py-6 sm:grid-cols-[14rem_1fr] sm:gap-10 sm:py-8">
+						<dt class="font-display text-2xl font-semibold text-brand-950">{tipo.titulo}</dt>
+						<dd class="max-w-prose text-lg leading-relaxed text-neutral-700">{tipo.descripcion}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</section>
+
+	<!-- Cómo funciona -->
+	<section id="como-funciona" class="mx-auto max-w-6xl scroll-mt-20 px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8">
+		<h2 class="font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl">Cómo funciona</h2>
+
+		<ol class="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
+			{
+				pasos.map((paso, indice) => (
+					<li class="flex flex-col gap-2 border-t border-neutral-300 pt-6">
+						<span class="font-display text-3xl font-semibold text-accent-700" aria-hidden="true">
+							{indice + 1}
+						</span>
+						<h3 class="text-lg font-semibold text-brand-950">{paso.titulo}</h3>
+						<p class="leading-relaxed text-neutral-700">{paso.descripcion}</p>
+					</li>
+				))
+			}
+		</ol>
+	</section>
+
+	<!-- Cierre: el único bloque oscuro, para pedir el aporte -->
+	<section id="contribuir" class="scroll-mt-20 bg-brand-950 text-white">
+		<div
+			class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-20 sm:px-6 sm:py-24 md:flex-row md:items-end md:justify-between lg:px-8"
+		>
+			<div class="max-w-2xl">
+				<h2 class="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+					¿Tenés apuntes o parciales? Compartilos.
+				</h2>
+				<p class="mt-4 text-lg leading-relaxed text-brand-100">
+					Cada aporte les sirve a quienes cursan la misma materia.
+				</p>
+			</div>
+			<Boton href="/subir" variante="acento">Subir material</Boton>
+		</div>
+	</section>
+</Layout>
