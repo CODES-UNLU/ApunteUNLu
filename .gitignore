@@ -30,6 +30,10 @@ desktop.ini
 # jetbrains setting folder
 .idea/
 
+# padrón de estudiantes: datos personales, nunca al repo
+padron*.csv
+*.padron.*
+
 # local agent settings
 .claude/settings.local.json
 
