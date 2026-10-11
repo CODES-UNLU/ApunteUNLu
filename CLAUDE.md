@@ -1,3 +1,13 @@
+## Proyecto
+
+ApunteUNLu es una web para subir y compartir **apuntes**, **parciales viejos** y **finales** de la Licenciatura en Sistemas de la UNLu (Universidad Nacional de Luján).
+
+- Lo desarrolla el **CODES** (Centro Organizado de Estudiantes de Sistemas · UNLu).
+- De momento solo cubre la **Licenciatura en Sistemas**; el material se organiza por materia.
+- La interfaz y los textos visibles para el usuario van en **español**.
+
+Stack: Astro 7, Tailwind CSS 4 (vía `@tailwindcss/vite`) y pnpm. Más detalles en `README.md`.
+
 ## Reglas para agentes
 
 Estas reglas aplican siempre, sin excepción, a cualquier agente que trabaje en este repositorio.

@@ -1,43 +1,48 @@
-# Astro Starter Kit: Minimal
+# ApunteUNLu
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Plataforma para subir y compartir **apuntes**, **parciales viejos** y **finales** de la Licenciatura en Sistemas de la Universidad Nacional de Luján (UNLu).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Proyecto desarrollado por el **CODES** (Centro Organizado de Estudiantes de Sistemas · UNLu).
 
-## 🚀 Project Structure
+## 📌 Alcance
 
-Inside of your Astro project, you'll see the following folders and files:
+- De momento solo cubre la **Licenciatura en Sistemas**.
+- El material se organiza por materia.
+- Tipos de material: apuntes, parciales resueltos o tomados y finales.
+
+## 🛠️ Stack
+
+- [Astro](https://astro.build) 7
+- [Tailwind CSS](https://tailwindcss.com) 4 (vía `@tailwindcss/vite`)
+- [pnpm](https://pnpm.io) como gestor de paquetes
+
+## 🧞 Comandos
+
+Se ejecutan desde la raíz del proyecto:
+
+| Comando                | Acción                                           |
+| :--------------------- | :----------------------------------------------- |
+| `pnpm install`         | Instala las dependencias                         |
+| `pnpm dev`             | Inicia el servidor de desarrollo en `localhost:4321` |
+| `pnpm build`           | Genera el sitio de producción en `./dist/`       |
+| `pnpm preview`         | Previsualiza el build antes de desplegar         |
+| `pnpm astro ...`       | Ejecuta comandos de la CLI de Astro              |
+
+## 📁 Estructura
 
 ```text
 /
-├── public/
+├── public/          # Archivos estáticos (favicon, imágenes)
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── pages/       # Rutas: cada archivo es una página
+│   │   └── index.astro
+│   └── styles/      # Estilos globales (Tailwind)
+├── AGENTS.md        # Reglas para agentes de IA
+├── CLAUDE.md        # Reglas para Claude Code
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🤝 Contribuir
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Los commits siguen [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) en español (ver `CLAUDE.md`).
+- Usar siempre `pnpm`; no se versiona `package-lock.json` ni `yarn.lock`.
