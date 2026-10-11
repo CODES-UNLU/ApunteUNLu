@@ -17,25 +17,21 @@ Proyecto desarrollado por el **CODES** (Centro Organizado de Estudiantes de Sist
 | [Astro](https://astro.build) 7 | Framework del sitio. Genera páginas estáticas en `dist/`. | `src/pages/`, `src/layouts/` |
 | [Tailwind CSS](https://tailwindcss.com) 4 (vía `@tailwindcss/vite`) | Estilos con clases utilitarias. La paleta y las fuentes se definen como tokens en `@theme`. | `src/styles/global.css` |
 | [Literata](https://fonts.google.com/specimen/Literata) y [Public Sans](https://fonts.google.com/specimen/Public+Sans) | Tipografía de títulos (serif) y de texto (sans), desde Google Fonts. | `src/layouts/Layout.astro` |
-| [Supabase](https://supabase.com) (`@supabase/supabase-js`) | Autenticación: sesión anónima y verificación del legajo contra el padrón. | `src/lib/supabase.ts`, `src/lib/sesion.ts` |
+| [Supabase](https://supabase.com) (`@supabase/supabase-js`) | Autenticación de usuarios con Google. | `src/lib/supabase.ts`, `src/lib/sesion.ts` |
 | [pnpm](https://pnpm.io) | Gestor de paquetes. El lockfile es `pnpm-lock.yaml`. | `pnpm-lock.yaml` |
 
 Requisitos: **Node.js 22.12 o superior** y pnpm.
 
 ## 🔐 Inicio de sesión
 
-Ver el material y subir apuntes requiere ingresar con el **número de legajo** de la Licenciatura en Sistemas. El legajo se verifica contra el padrón. No hay contraseña ni proveedor externo: la sesión es anónima de Supabase y el legajo solo confirma que figura en el padrón. Cualquiera que conozca un legajo puede ingresar como ese estudiante.
-
-Antes de entrar a esas secciones se abre un modal que pide el legajo.
-
-El padrón (`padron_estudiantes`) tiene sólo `legajo` y `carrera`, sin nombres ni DNI. Tiene RLS activado sin políticas: el cliente no puede leerlo. Sólo lo consulta la función `verificar_legajo`. La carga se hace a mano desde el dashboard de Supabase y el archivo CSV no se sube al repo (está en `.gitignore`).
+Ver el material y subir apuntes requiere iniciar sesión **con Google** (no hay otros proveedores). Antes de entrar a esas secciones se abre un modal de inicio de sesión.
 
 Para configurarlo:
 
 1. Copiar `.env.example` a `.env` y completar `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` (Project Settings > API en Supabase).
-2. En Supabase, habilitar **Anonymous Sign-Ins** (Authentication > Sign In / Providers). El proveedor Google ya no se usa.
-3. En GitHub, cargar los secretos `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` para el deploy.
-4. Las migraciones de `supabase/migrations` se aplican solas con la integración de GitHub. Después, cargar el padrón en la tabla `padron_estudiantes` con las columnas `legajo` y `carrera` (el valor de carrera tiene que ser `Licenciatura en Sistemas`).
+2. En Supabase, habilitar sólo el proveedor **Google** (Authentication > Sign In / Providers). Deshabilitar el resto.
+3. En Authentication > URL Configuration, agregar a *Redirect URLs* la URL local (`http://localhost:4321/**`) y la de producción.
+4. En GitHub, cargar los secretos `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` para el deploy.
 
 ## 🧞 Comandos
 
