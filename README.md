@@ -10,35 +10,65 @@ Proyecto desarrollado por el **CODES** (Centro Organizado de Estudiantes de Sist
 - El material se organiza por materia.
 - Tipos de material: apuntes, parciales resueltos o tomados y finales.
 
-## 🛠️ Stack
+## 🛠️ Tecnologías
 
-- [Astro](https://astro.build) 7
-- [Tailwind CSS](https://tailwindcss.com) 4 (vía `@tailwindcss/vite`)
-- [pnpm](https://pnpm.io) como gestor de paquetes
+| Tecnología | Para qué se usa | Dónde está |
+| :--- | :--- | :--- |
+| [Astro](https://astro.build) 7 | Framework del sitio. Genera páginas estáticas en `dist/`. | `src/pages/`, `src/layouts/` |
+| [Tailwind CSS](https://tailwindcss.com) 4 (vía `@tailwindcss/vite`) | Estilos con clases utilitarias. La paleta y las fuentes se definen como tokens en `@theme`. | `src/styles/global.css` |
+| [Literata](https://fonts.google.com/specimen/Literata) y [Public Sans](https://fonts.google.com/specimen/Public+Sans) | Tipografía de títulos (serif) y de texto (sans), desde Google Fonts. | `src/layouts/Layout.astro` |
+| [Supabase](https://supabase.com) (`@supabase/supabase-js`) | Autenticación de usuarios (login con Google). Instalado, todavía sin configurar en el código. | `package.json` |
+| [pnpm](https://pnpm.io) | Gestor de paquetes. El lockfile es `pnpm-lock.yaml`. | `pnpm-lock.yaml` |
+
+Requisitos: **Node.js 22.12 o superior** y pnpm.
 
 ## 🧞 Comandos
 
 Se ejecutan desde la raíz del proyecto:
 
-| Comando                | Acción                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Instala las dependencias                         |
+| Comando                | Acción                                               |
+| :--------------------- | :--------------------------------------------------- |
+| `pnpm install`         | Instala las dependencias                             |
 | `pnpm dev`             | Inicia el servidor de desarrollo en `localhost:4321` |
-| `pnpm build`           | Genera el sitio de producción en `./dist/`       |
-| `pnpm preview`         | Previsualiza el build antes de desplegar         |
-| `pnpm astro ...`       | Ejecuta comandos de la CLI de Astro              |
+| `pnpm build`           | Genera el sitio de producción en `./dist/`           |
+| `pnpm preview`         | Previsualiza el build antes de desplegar             |
+| `pnpm check:agentes`   | Verifica que `AGENTS.md` y `CLAUDE.md` sean idénticos |
+| `pnpm astro ...`       | Ejecuta comandos de la CLI de Astro                  |
+
+## 🤖 Agentes de IA
+
+El repo tiene dos archivos con las reglas para agentes, y **deben tener exactamente el mismo contenido**:
+
+- `CLAUDE.md`: lo lee Claude Code.
+- `AGENTS.md`: lo leen el resto de las herramientas de IA.
+
+Para que no se desincronicen:
+
+- `pnpm check:agentes` (`scripts/check-agentes.mjs`) compara ambos archivos.
+- Corre automáticamente antes de `pnpm build` (en el script `prebuild`), así que el build falla si difieren.
+- Para cambiar una regla, editá `CLAUDE.md` y copiá el archivo sobre `AGENTS.md`.
+
+Las reglas principales son:
+
+- Usar siempre **pnpm**. Nunca `npm`, `npx` ni `yarn`.
+- Los commits siguen **Conventional Commits en español**, por ejemplo `feat(inicio): agregar la página de inicio`.
+- El servidor de desarrollo se inicia en segundo plano con `pnpm exec astro dev --background`.
 
 ## 📁 Estructura
 
 ```text
 /
-├── public/          # Archivos estáticos (favicon, imágenes)
+├── public/                 # Archivos estáticos (favicon)
+├── scripts/
+│   └── check-agentes.mjs   # Verifica que AGENTS.md y CLAUDE.md sean iguales
 ├── src/
-│   ├── pages/       # Rutas: cada archivo es una página
-│   │   └── index.astro
-│   └── styles/      # Estilos globales (Tailwind)
-├── AGENTS.md        # Reglas para agentes de IA
-├── CLAUDE.md        # Reglas para Claude Code
+│   ├── components/         # Piezas reutilizables: Header, Footer, Boton
+│   ├── layouts/            # Layout.astro: estructura común de las páginas
+│   ├── pages/              # Rutas: cada archivo es una página (index.astro)
+│   └── styles/             # global.css: fuentes y paleta de colores
+├── AGENTS.md               # Reglas para agentes de IA
+├── CLAUDE.md               # Reglas para Claude Code
+├── astro.config.mjs
 └── package.json
 ```
 
