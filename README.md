@@ -76,3 +76,7 @@ Las reglas principales son:
 
 - Los commits siguen [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) en español (ver `CLAUDE.md`).
 - Usar siempre `pnpm`; no se versiona `package-lock.json` ni `yarn.lock`.
+
+## 📄 Licencia
+
+Este proyecto está bajo la [Licencia MIT](LICENSE). Copyright © 2026 CODES (Centro Organizado de Estudiantes de Sistemas · UNLu).
