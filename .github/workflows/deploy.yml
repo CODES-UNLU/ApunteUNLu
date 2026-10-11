@@ -37,4 +37,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: pnpm dlx --package=netlify-cli netlify deploy --prod --dir=dist --message "Deploy desde GitHub Actions"
+        run: pnpm exec netlify deploy --prod --dir=dist --message "Deploy desde GitHub Actions"
