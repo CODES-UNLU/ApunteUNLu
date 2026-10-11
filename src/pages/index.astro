@@ -2,18 +2,26 @@
 import Layout from '../layouts/Layout.astro';
 import Boton from '../components/Boton.astro';
 
+// Cada tipo de material tiene su color y su hoja de la ilustración del hero: el color distingue cada tipo.
+// Las clases dark: mantienen el color legible sobre fondo oscuro.
 const tipos = [
 	{
 		titulo: 'Apuntes',
 		descripcion: 'Resúmenes y notas de clase para repasar cada tema a tu ritmo.',
+		punto: 'bg-brand-500 dark:bg-brand-400',
+		hoja: 'top-0 left-4 -rotate-6',
 	},
 	{
 		titulo: 'Parciales',
 		descripcion: 'Exámenes anteriores, resueltos o tomados, para practicar antes de la fecha.',
+		punto: 'bg-accent-500 dark:bg-accent-400',
+		hoja: 'top-12 left-16 rotate-3',
 	},
 	{
 		titulo: 'Finales',
 		descripcion: 'Material para preparar la mesa de examen final de cada materia.',
+		punto: 'bg-neutral-700 dark:bg-neutral-300',
+		hoja: 'top-24 left-6 rotate-1',
 	},
 ];
 
@@ -35,41 +43,72 @@ const pasos = [
 ---
 
 <Layout title="ApunteUNLu: apuntes y finales de Sistemas">
-	<!-- Hero: el titular en serif es el único momento tipográfico fuerte de la página -->
-	<section class="mx-auto max-w-6xl px-4 pt-14 pb-20 sm:px-6 sm:pt-24 sm:pb-28 lg:px-8 lg:pt-32">
-		<h1
-			class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight text-balance text-brand-950 sm:text-6xl lg:text-7xl"
+	<!-- Hero: titular en serif y, en pantallas grandes, hojas apiladas como ilustración -->
+	<section class="border-b border-brand-100 bg-brand-50 dark:border-brand-900 dark:bg-brand-950">
+		<div
+			class="mx-auto max-w-6xl px-4 pt-14 pb-20 sm:px-6 sm:pt-24 sm:pb-28 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:pt-32 lg:pb-32"
 		>
-			Apuntes, parciales y finales de Sistemas.
-		</h1>
+			<div>
+				<h1
+					class="max-w-3xl font-display text-5xl leading-[1.05] font-semibold tracking-tight text-balance text-brand-950 sm:text-6xl lg:text-7xl dark:text-brand-50"
+				>
+					Apuntes, parciales y finales de Sistemas.
+				</h1>
 
-		<p class="mt-6 max-w-xl text-lg leading-relaxed text-neutral-700">
-			El material que comparten los estudiantes de la Licenciatura en Sistemas de la UNLu, ordenado por materia.
-		</p>
+				<p class="mt-6 max-w-xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+					El material que comparten los estudiantes de la Licenciatura en Sistemas de la UNLu, ordenado por materia.
+				</p>
 
-		<div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-			<Boton href="#material">Ver el material</Boton>
-			<a
-				href="#como-funciona"
-				class="rounded font-medium text-brand-800 underline underline-offset-4 transition hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
-			>
-				Cómo funciona
-			</a>
+				<div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+					<Boton href="#material">Ver el material</Boton>
+					<a
+						href="#como-funciona"
+						class="rounded font-medium text-brand-800 underline underline-offset-4 transition hover:text-brand-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 dark:text-brand-200 dark:hover:text-white dark:focus-visible:outline-brand-300"
+					>
+						Cómo funciona
+					</a>
+				</div>
+			</div>
+
+			<div aria-hidden="true" class="relative mx-auto mt-20 hidden h-96 w-80 lg:mt-0 lg:block">
+				{
+					tipos.map((tipo) => (
+						<div
+							class={`absolute w-64 rounded-2xl bg-white p-6 shadow-xl ring-1 ring-neutral-200 dark:bg-neutral-900 dark:ring-neutral-800 ${tipo.hoja}`}
+						>
+							<p class="flex items-center gap-2.5 font-semibold text-brand-900 dark:text-brand-100">
+								<span class={`size-2.5 rounded-full ${tipo.punto}`}></span>
+								{tipo.titulo}
+							</p>
+							<div class="mt-6 space-y-3">
+								<span class="block h-2.5 w-full rounded-full bg-neutral-200 dark:bg-neutral-700"></span>
+								<span class="block h-2.5 w-5/6 rounded-full bg-neutral-200 dark:bg-neutral-700"></span>
+								<span class="block h-2.5 w-2/3 rounded-full bg-neutral-200 dark:bg-neutral-700"></span>
+							</div>
+						</div>
+					))
+				}
+			</div>
 		</div>
 	</section>
 
-	<!-- Tipos de material: una lista con líneas, porque son tres ítems del mismo nivel -->
-	<section id="material" class="mx-auto max-w-6xl scroll-mt-20 px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8">
-		<h2 class="font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl">
+	<!-- Tipos de material: lista con un punto de color por tipo, porque son tres ítems del mismo nivel -->
+	<section id="material" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+		<h2 class="font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl dark:text-brand-50">
 			Tres tipos de material
 		</h2>
 
-		<dl class="mt-8 divide-y divide-neutral-300 border-y border-neutral-300">
+		<dl
+			class="mt-8 divide-y divide-neutral-200 border-y border-neutral-200 dark:divide-neutral-800 dark:border-neutral-800"
+		>
 			{
 				tipos.map((tipo) => (
-					<div class="grid gap-2 py-6 sm:grid-cols-[14rem_1fr] sm:gap-10 sm:py-8">
-						<dt class="font-display text-2xl font-semibold text-brand-950">{tipo.titulo}</dt>
-						<dd class="max-w-prose text-lg leading-relaxed text-neutral-700">{tipo.descripcion}</dd>
+					<div class="grid gap-2 py-7 sm:grid-cols-[14rem_1fr] sm:gap-10 sm:py-8">
+						<dt class="flex items-center gap-3 font-display text-2xl font-semibold text-brand-950 dark:text-brand-50">
+							<span class={`size-2.5 shrink-0 rounded-full ${tipo.punto}`} aria-hidden="true"></span>
+							{tipo.titulo}
+						</dt>
+						<dd class="max-w-prose text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">{tipo.descripcion}</dd>
 					</div>
 				))
 			}
@@ -77,26 +116,33 @@ const pasos = [
 	</section>
 
 	<!-- Cómo funciona -->
-	<section id="como-funciona" class="mx-auto max-w-6xl scroll-mt-20 px-4 pb-20 sm:px-6 sm:pb-28 lg:px-8">
-		<h2 class="font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl">Cómo funciona</h2>
+	<section id="como-funciona" class="scroll-mt-20 bg-white dark:bg-neutral-900">
+		<div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+			<h2 class="font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl dark:text-brand-50">
+				Cómo funciona
+			</h2>
 
-		<ol class="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
-			{
-				pasos.map((paso, indice) => (
-					<li class="flex flex-col gap-2 border-t border-neutral-300 pt-6">
-						<span class="font-display text-3xl font-semibold text-accent-700" aria-hidden="true">
-							{indice + 1}
-						</span>
-						<h3 class="text-lg font-semibold text-brand-950">{paso.titulo}</h3>
-						<p class="leading-relaxed text-neutral-700">{paso.descripcion}</p>
-					</li>
-				))
-			}
-		</ol>
+			<ol class="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
+				{
+					pasos.map((paso, indice) => (
+						<li class="flex flex-col gap-2 border-t-2 border-accent-200 pt-6 dark:border-accent-800">
+							<span
+								class="font-display text-3xl font-semibold text-accent-700 dark:text-accent-300"
+								aria-hidden="true"
+							>
+								{indice + 1}
+							</span>
+							<h3 class="text-lg font-semibold text-brand-950 dark:text-brand-50">{paso.titulo}</h3>
+							<p class="leading-relaxed text-neutral-700 dark:text-neutral-300">{paso.descripcion}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
 	</section>
 
-	<!-- Cierre: el único bloque oscuro, para pedir el aporte -->
-	<section id="contribuir" class="scroll-mt-20 bg-brand-950 text-white">
+	<!-- Cierre: verde oscuro de marca para pedir el aporte -->
+	<section id="contribuir" class="scroll-mt-20 bg-brand-900 text-white">
 		<div
 			class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-20 sm:px-6 sm:py-24 md:flex-row md:items-end md:justify-between lg:px-8"
 		>
@@ -108,7 +154,7 @@ const pasos = [
 					Cada aporte les sirve a quienes cursan la misma materia.
 				</p>
 			</div>
-			<Boton href="/subir" variante="acento">Subir material</Boton>
+			<Boton href="/subir" variante="claro">Subir material</Boton>
 		</div>
 	</section>
 </Layout>
