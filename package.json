@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "check:agentes": "node scripts/check-agentes.mjs",
+    "prebuild": "pnpm run check:agentes",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
