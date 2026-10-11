@@ -2,9 +2,11 @@
 interface Props {
 	href: string;
 	variante?: 'primario' | 'claro';
+	// Pide inicio de sesión (Google) antes de navegar al destino.
+	requiereSesion?: boolean;
 }
 
-const { href, variante = 'primario' } = Astro.props;
+const { href, variante = 'primario', requiereSesion = false } = Astro.props;
 
 // Cada variante trae sus propios colores de foco y de modo oscuro, porque ninguno sirve en ambos modos.
 const variantes = {
@@ -16,6 +18,7 @@ const variantes = {
 
 <a
 	href={href}
+	data-requiere-sesion={requiereSesion ? '' : undefined}
 	class:list={[
 		'inline-flex w-full items-center justify-center rounded-md px-6 py-3 text-base font-semibold transition sm:w-auto',
 		'focus-visible:outline-2 focus-visible:outline-offset-2',

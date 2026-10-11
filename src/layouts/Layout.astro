@@ -2,15 +2,19 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ModalSesion from '../components/ModalSesion.astro';
 
 interface Props {
 	title: string;
 	description?: string;
+	// Sólo con sesión iniciada (Google): el contenido queda oculto hasta verificarla.
+	requiereSesion?: boolean;
 }
 
 const {
 	title,
 	description = 'Apuntes, parciales y finales de la Licenciatura en Sistemas de la UNLu, organizados por materia.',
+	requiereSesion = false,
 } = Astro.props;
 ---
 
@@ -33,11 +37,18 @@ const {
 	</head>
 	<body
 		class="flex min-h-dvh flex-col bg-neutral-50 font-sans text-neutral-800 antialiased dark:bg-neutral-950 dark:text-neutral-200"
+		data-protegida={requiereSesion ? '' : undefined}
 	>
 		<Header />
-		<main class="flex-1">
+		<main class="flex-1" hidden={requiereSesion}>
 			<slot />
 		</main>
 		<Footer />
+		<ModalSesion />
+		<script>
+			import { iniciarControlDeSesion } from '../lib/sesion';
+
+			iniciarControlDeSesion();
+		</script>
 	</body>
 </html>
