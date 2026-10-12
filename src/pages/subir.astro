@@ -1,13 +1,109 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Circuito de un aporte: primero lo revisa un administrador, después se publica.
+const pasos = [
+	{
+		titulo: 'Elegí el tipo y la materia',
+		descripcion: 'Indicá si es un apunte o resumen, un parcial o un final, y a qué materia corresponde.',
+	},
+	{
+		titulo: 'Un administrador lo revisa',
+		descripcion: 'Nada se publica directamente: cada aporte se aprueba antes de aparecer en el material.',
+	},
+	{
+		titulo: 'Queda publicado',
+		descripcion: 'Una vez aprobado, lo ven los estudiantes de la materia, ordenado con el resto del material.',
+	},
+];
+
+// Priorizamos el material reciente: por eso la antigüedad define cuánto lugar tiene cada aporte.
+const antiguedad = [
+	{
+		titulo: 'Reciente',
+		rango: 'Hasta 3 años',
+		descripcion: 'Es el material que más priorizamos. Se publica y queda visible en el material de la materia.',
+		punto: 'bg-brand-500 dark:bg-brand-400',
+	},
+	{
+		titulo: 'Histórico',
+		rango: 'De 3 a 5 años',
+		descripcion: 'Sigue siendo útil, así que se publica, pero queda detrás del material reciente.',
+		punto: 'bg-accent-500 dark:bg-accent-400',
+	},
+	{
+		titulo: 'Antiguo',
+		rango: 'Más de 5 años',
+		descripcion:
+			'Sólo se publica si es muy útil o sirve en general. Si no, no se sube o queda en un archivo comprimido de material antiguo.',
+		punto: 'bg-neutral-700 dark:bg-neutral-300',
+	},
+];
 ---
 
 <Layout title="Subir material · ApunteUNLu" requiereSesion>
 	<section class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-		<h1 class="font-display text-4xl font-semibold tracking-tight text-brand-950 sm:text-5xl dark:text-brand-50">
+		<p class="font-semibold tracking-wide text-accent-700 uppercase dark:text-accent-300">Aportes</p>
+		<h1 class="mt-3 font-display text-4xl font-semibold tracking-tight text-brand-950 sm:text-5xl dark:text-brand-50">
 			Subir material
 		</h1>
 		<p class="mt-4 max-w-xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+			Antes de publicarse, todo aporte lo revisa un administrador. Así el material queda ordenado y al día para toda la carrera.
+		</p>
+
+		<!-- Aviso: se destaca porque cambia cómo se espera la publicación -->
+		<aside
+			class="mt-10 max-w-2xl rounded-2xl bg-brand-50 p-6 ring-1 ring-brand-100 sm:p-7 dark:bg-brand-950 dark:ring-brand-900"
+		>
+			<p class="font-display text-xl font-semibold text-brand-950 dark:text-brand-50">Antes de subir</p>
+			<p class="mt-3 leading-relaxed text-neutral-700 dark:text-neutral-300">
+				Priorizamos el material reciente. Los aportes con más de 3 años se consideran históricos, y los de más de 5 años,
+				antiguos.
+			</p>
+		</aside>
+
+		<!-- Circuito: lista numerada porque son pasos en orden -->
+		<h2 class="mt-16 font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl dark:text-brand-50">
+			Cómo funciona
+		</h2>
+		<ol class="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
+			{
+				pasos.map((paso, indice) => (
+					<li class="flex flex-col gap-2 border-t-2 border-accent-200 pt-6 dark:border-accent-800">
+						<span class="font-display text-3xl font-semibold text-accent-700 dark:text-accent-300" aria-hidden="true">
+							{indice + 1}
+						</span>
+						<h3 class="text-lg font-semibold text-brand-950 dark:text-brand-50">{paso.titulo}</h3>
+						<p class="leading-relaxed text-neutral-700 dark:text-neutral-300">{paso.descripcion}</p>
+					</li>
+				))
+			}
+		</ol>
+
+		<!-- Antigüedad: lista con un punto de color por categoría, son tres niveles del mismo tipo -->
+		<h2 class="mt-16 font-display text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl dark:text-brand-50">
+			Antigüedad del material
+		</h2>
+		<dl class="mt-8 divide-y divide-neutral-200 border-y border-neutral-200 dark:divide-neutral-800 dark:border-neutral-800">
+			{
+				antiguedad.map((nivel) => (
+					<div class="grid gap-2 py-7 sm:grid-cols-[14rem_1fr] sm:gap-10 sm:py-8">
+						<dt class="flex items-center gap-3 font-display text-2xl font-semibold text-brand-950 dark:text-brand-50">
+							<span class={`size-2.5 shrink-0 rounded-full ${nivel.punto}`} aria-hidden="true"></span>
+							<span>
+								{nivel.titulo}
+								<span class="mt-1 block font-sans text-base font-medium text-neutral-500 dark:text-neutral-400">
+									{nivel.rango}
+								</span>
+							</span>
+						</dt>
+						<dd class="max-w-prose text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">{nivel.descripcion}</dd>
+					</div>
+				))
+			}
+		</dl>
+
+		<p class="mt-12 max-w-xl text-neutral-600 dark:text-neutral-400">
 			Próximamente: el formulario para compartir apuntes, parciales y finales.
 		</p>
 	</section>
