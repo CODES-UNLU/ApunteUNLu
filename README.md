@@ -107,6 +107,7 @@ Las reglas principales son:
 
 ## 🙌 Créditos
 
+- **[Berna](https://github.com/Bernard2806)**: constructor de ApunteUNLu. Impulsó una alternativa mejorada y actualizada para compartir apuntes y finales de la Licenciatura en Sistemas.
 - **[Pri](https://github.com/PrisRedondo29)**: por el enorme trabajo de pensar y revisar todas las equivalencias entre los planes 17.13 y 17.14.
 - **CODES** (Centro Organizado de Estudiantes de Sistemas · UNLu): desarrollo y mantenimiento de ApunteUNLu.
 
