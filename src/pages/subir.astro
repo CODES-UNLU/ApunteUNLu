@@ -18,24 +18,25 @@ const pasos = [
 ];
 
 // Priorizamos el material reciente: por eso la antigüedad define cuánto lugar tiene cada aporte.
+// Los nombres describen el momento del material, sin juzgar su valor.
 const antiguedad = [
 	{
 		titulo: 'Reciente',
 		rango: 'Hasta 3 años',
-		descripcion: 'Es el material que más priorizamos. Se publica y queda visible en el material de la materia.',
+		descripcion: 'Lo que más priorizamos. Se publica y queda visible primero en el material de la materia.',
 		punto: 'bg-brand-500 dark:bg-brand-400',
 	},
 	{
-		titulo: 'Histórico',
+		titulo: 'De referencia',
 		rango: 'De 3 a 5 años',
-		descripcion: 'Sigue siendo útil, así que se publica, pero queda detrás del material reciente.',
+		descripcion: 'Sigue siendo muy útil para estudiar. Se publica y aparece después del material reciente.',
 		punto: 'bg-accent-500 dark:bg-accent-400',
 	},
 	{
-		titulo: 'Antiguo',
+		titulo: 'Años anteriores',
 		rango: 'Más de 5 años',
 		descripcion:
-			'Sólo se publica si es muy útil o sirve en general. Si no, no se sube o queda en un archivo comprimido de material antiguo.',
+			'Se publica cuando tiene un valor especial: por su utilidad o porque sirve en general para la carrera. Si no, se guarda en un archivo de material de años anteriores.',
 		punto: 'bg-neutral-700 dark:bg-neutral-300',
 	},
 ];
@@ -57,8 +58,8 @@ const antiguedad = [
 		>
 			<p class="font-display text-xl font-semibold text-brand-950 dark:text-brand-50">Antes de subir</p>
 			<p class="mt-3 leading-relaxed text-neutral-700 dark:text-neutral-300">
-				Priorizamos el material reciente. Los aportes con más de 3 años se consideran históricos, y los de más de 5 años,
-				antiguos.
+				Priorizamos el material reciente: lo de hasta 3 años aparece primero. Después viene el material de referencia (de 3 a
+				5 años) y el de años anteriores (más de 5).
 			</p>
 		</aside>
 
