@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Sólo administradores: Layout consulta el rol y redirige al inicio si la cuenta no lo tiene.
+const secciones = [
+	{
+		titulo: 'Roles de usuarios',
+		descripcion: 'Las cuentas nuevas entran como estudiantes. Los administradores se asignan desde el SQL editor de Supabase.',
+		punto: 'bg-brand-500 dark:bg-brand-400',
+	},
+	{
+		titulo: 'Moderación de material',
+		descripcion: 'Próximamente: revisar apuntes, parciales y finales antes de publicarlos.',
+		punto: 'bg-accent-500 dark:bg-accent-400',
+	},
+];
+---
+
+<Layout title="Panel · ApunteUNLu" requiereSesion rolRequerido="administrador">
+	<section class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+		<p class="font-semibold tracking-wide text-accent-700 uppercase dark:text-accent-300">Administración</p>
+		<h1 class="mt-3 font-display text-4xl font-semibold tracking-tight text-brand-950 sm:text-5xl dark:text-brand-50">
+			Panel
+		</h1>
+		<p class="mt-4 max-w-xl text-lg leading-relaxed text-neutral-700 dark:text-neutral-300">
+			Herramientas para mantener el material y las cuentas de ApunteUNLu.
+		</p>
+
+		<ul class="mt-12 grid gap-6 sm:grid-cols-2">
+			{
+				secciones.map((seccion) => (
+					<li class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-neutral-200 dark:bg-neutral-900 dark:ring-neutral-800">
+						<p class="flex items-center gap-2.5 font-display text-xl font-semibold text-brand-950 dark:text-brand-50">
+							<span class={`size-2.5 rounded-full ${seccion.punto}`} aria-hidden="true"></span>
+							{seccion.titulo}
+						</p>
+						<p class="mt-3 leading-relaxed text-neutral-700 dark:text-neutral-300">{seccion.descripcion}</p>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Layout>
