@@ -33,6 +33,23 @@ Para configurarlo:
 3. En Authentication > URL Configuration, agregar a *Redirect URLs* la URL local (`http://localhost:4321/**`) y la de producción.
 4. En GitHub, cargar los secretos `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` para el deploy.
 
+## 👥 Roles
+
+Cada cuenta tiene un rol en la tabla `perfiles`:
+
+- **`estudiante`**: el rol por defecto. Se asigna solo al crear la cuenta.
+- **`administrador`**: ve el botón **Panel** del navbar y la página `/panel`.
+
+Para dar el rol de administrador, en el SQL editor de Supabase:
+
+```sql
+update public.perfiles
+set rol = 'administrador'
+where id = (select id from auth.users where email = 'correo@ejemplo.com');
+```
+
+El cliente no puede cambiar el rol: sólo lo lee de su propia fila.
+
 ## 🧞 Comandos
 
 Se ejecutan desde la raíz del proyecto:
