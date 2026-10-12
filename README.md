@@ -105,6 +105,13 @@ Las reglas principales son:
 - Los commits siguen [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) en español (ver `CLAUDE.md`).
 - Usar siempre `pnpm`; no se versiona `package-lock.json` ni `yarn.lock`.
 
+## 🙌 Créditos
+
+- **[Pri](https://github.com/PrisRedondo29)**: por el enorme trabajo de pensar y revisar todas las equivalencias entre los planes 17.13 y 17.14.
+- **CODES** (Centro Organizado de Estudiantes de Sistemas · UNLu): desarrollo y mantenimiento de ApunteUNLu.
+
+Los planes y equivalencias están documentados en [`docs/planes-y-equivalencias.md`](docs/planes-y-equivalencias.md).
+
 ## 📄 Licencia
 
 Este proyecto está bajo la [Licencia MIT](LICENSE). Copyright © 2026 CODES (Centro Organizado de Estudiantes de Sistemas · UNLu).
