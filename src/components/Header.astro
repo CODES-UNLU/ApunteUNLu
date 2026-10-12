@@ -33,5 +33,37 @@ const enlaces = [
 				}
 			</ul>
 		</nav>
+
+		<!-- Sólo lo ve un administrador: el script de abajo quita el atributo hidden si el rol lo corresponde -->
+		<a
+			id="enlace-panel"
+			href="/panel"
+			hidden
+			class="group inline-flex items-center gap-2 rounded-full bg-brand-700 py-2 pr-4 pl-2 text-sm font-semibold text-white shadow-sm ring-1 ring-brand-800/20 transition hover:bg-brand-800 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 dark:bg-brand-400 dark:text-brand-950 dark:ring-brand-300/30 dark:hover:bg-brand-300 dark:focus-visible:outline-brand-300"
+		>
+			<span
+				class="grid size-7 place-items-center rounded-full bg-accent-400 text-brand-950 transition group-hover:scale-105"
+				aria-hidden="true"
+			>
+				<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+					<rect x="3" y="3" width="7.5" height="8.5" rx="1.75" />
+					<rect x="13.5" y="3" width="7.5" height="4.5" rx="1.75" />
+					<rect x="13.5" y="10.5" width="7.5" height="10.5" rx="1.75" />
+					<rect x="3" y="14.5" width="7.5" height="6.5" rx="1.75" />
+				</svg>
+			</span>
+			Panel
+		</a>
 	</div>
 </header>
+
+<script>
+	import { obtenerRol } from '../lib/roles';
+
+	const enlacePanel = document.getElementById('enlace-panel');
+	if (enlacePanel) {
+		obtenerRol().then((rol) => {
+			if (rol === 'administrador') enlacePanel.hidden = false;
+		});
+	}
+</script>
