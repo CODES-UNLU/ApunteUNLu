@@ -27,14 +27,24 @@ jobs:
 
       - name: Build project
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY || secrets.VITE_SUPABASE_ANON_KEY }}
-        run: pnpm build
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          # Sin estos secretos el sitio se publica pero el inicio de sesión no funciona.
+          if [ -z "$PUBLIC_SUPABASE_URL" ] || [ -z "$PUBLIC_SUPABASE_ANON_KEY" ]; then
+            echo "Faltan los secretos PUBLIC_SUPABASE_URL o PUBLIC_SUPABASE_ANON_KEY." >&2
+            exit 1
+          fi
+          pnpm build
+          # Confirma que la URL quedó incluida en el bundle que se va a desplegar.
+          if ! grep -rqF "$PUBLIC_SUPABASE_URL" dist; then
+            echo "La URL de Supabase no quedó incluida en dist/." >&2
+            exit 1
+          fi
 
       - name: Deploy to Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: pnpm exec netlify deploy --prod --dir=dist --message "Deploy desde GitHub Actions"
+        # --no-build: sube el dist construido arriba con los secretos; sin esto netlify-cli vuelve a construir sin ellos.
+        run: pnpm exec netlify deploy --prod --no-build --dir=dist --message "Deploy desde GitHub Actions"
