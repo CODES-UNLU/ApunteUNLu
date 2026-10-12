@@ -9,12 +9,15 @@ interface Props {
 	description?: string;
 	// Sólo con sesión iniciada (Google): el contenido queda oculto hasta verificarla.
 	requiereSesion?: boolean;
+	// Sólo para cuentas con este rol. Quien no lo tiene es redirigido al inicio.
+	rolRequerido?: 'administrador';
 }
 
 const {
 	title,
 	description = 'Apuntes, parciales y finales de la Licenciatura en Sistemas de la UNLu, organizados por materia.',
 	requiereSesion = false,
+	rolRequerido,
 } = Astro.props;
 ---
 
@@ -38,6 +41,7 @@ const {
 	<body
 		class="flex min-h-dvh flex-col bg-neutral-50 font-sans text-neutral-800 antialiased dark:bg-neutral-950 dark:text-neutral-200"
 		data-protegida={requiereSesion ? '' : undefined}
+		data-rol-requerido={rolRequerido}
 	>
 		<Header />
 		<main class="flex-1" hidden={requiereSesion}>

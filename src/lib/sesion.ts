@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+import { obtenerRol, type Rol } from './roles';
 
 // Control de sesión: antes de entrar a una sección protegida se verifica la sesión y, si no hay, se abre el modal de inicio.
 export function iniciarControlDeSesion() {
@@ -9,6 +10,8 @@ export function iniciarControlDeSesion() {
 	if (!modal || !botonGoogle || !mensajeError || !contenido) return;
 
 	const paginaProtegida = document.body.hasAttribute('data-protegida');
+	// Rol que hace falta para ver la página (por ejemplo, el panel de administración).
+	const rolRequerido = document.body.dataset.rolRequerido as Rol | undefined;
 	// Adónde volver después de iniciar sesión.
 	let destino = location.pathname;
 
@@ -58,9 +61,16 @@ export function iniciarControlDeSesion() {
 
 	// Página protegida: el contenido queda oculto hasta confirmar la sesión.
 	if (paginaProtegida) {
-		haySesion().then((activa) => {
-			if (activa) contenido.hidden = false;
-			else abrirModal(destino);
+		haySesion().then(async (activa) => {
+			if (!activa) {
+				abrirModal(destino);
+				return;
+			}
+			if (rolRequerido && (await obtenerRol()) !== rolRequerido) {
+				location.replace('/');
+				return;
+			}
+			contenido.hidden = false;
 		});
 	}
 }
